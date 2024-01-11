@@ -121,9 +121,11 @@ namespace secplus1 {
 
         if (action == DoorAction::TOGGLE ||
             (this->door_state == DoorState::CLOSED && action == DoorAction::OPEN) || 
-            (this->door_state == DoorState::CLOSING && action == DoorAction::OPEN) ||
-            (this->door_state == DoorState::OPEN && action != DoorAction::CLOSE) ||
-            (this->door_state == DoorState::OPENING && action == DoorAction::STOP)) {
+            (this->door_state == DoorState::CLOSING && action == DoorAction::STOP) ||
+            (this->door_state == DoorState::OPEN && action == DoorAction::CLOSE) ||
+            (this->door_state == DoorState::OPENING && action == DoorAction::STOP)
+	   )
+	{
             this->transmit_packet(toggle_door);
         }
         // if ((this->door_state == DoorState::CLOSING && action == DoorAction::STOP) ||
