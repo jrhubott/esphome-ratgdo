@@ -266,13 +266,15 @@ namespace secplus1 {
 
     void Secplus1::transmit_packet(const uint8_t packet[], uint32_t len)
     {
-        this->transmit_packet_delayed(packet, len, 25);
+	this->sw_serial_.write(packet, 1);
+        //this->transmit_packet_delayed(packet, len, 25);
     }
 
     void Secplus1::transmit_packet(const TxPacket& packet)
     {
         this->print_tx_packet(packet);
-
+	this->sw_serial_.write(packet, TX_LENGTH);
+	return;
         auto delay = this->last_rx_ + 250 - millis();
         if (delay > 0) {
             this->scheduler_->set_timeout(this->ratgdo_, "", delay, [=] {
